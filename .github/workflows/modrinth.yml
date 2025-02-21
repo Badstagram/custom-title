@@ -52,7 +52,6 @@ jobs:
           name: "${{env.RELEASE_NAME}} v${{steps.mod_version.outputs.mod_version}}"
           version: "${{steps.mod_version.outputs.mod_version}}-${{env.MC_VERSION}}"
           version-type: release
-          changelog-file: CHANGELOG.md
           loaders: fabric
           game-versions: "${{env.MC_VERSION}}"
 
