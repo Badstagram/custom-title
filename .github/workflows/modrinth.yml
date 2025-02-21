@@ -1,21 +1,59 @@
+name: Publish on Modrinth
+
+on: [ workflow_dispatch ]
+
+env:
+  JAVA_VERSION: 21
+  MC_VERSION: 1.21
+  RELEASE_NAME: Custom Title
+  MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+
+permissions:
+  contents: write
+
 jobs:
   build:
-    # ...
-    permissions:
-      contents: write
+    runs-on: ubuntu-latest
     steps:
-      - uses: Kir-Antipov/mc-publish@v3.3
+      - name: Check Environment Variables
+        run: env
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         with:
+          submodules: true
 
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: "${{env.JAVA_VERSION}}"
+
+      - name: Make Gradle Wrapper Executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew clean build --stacktrace
+
+      - name: Get version number
+        uses: BrycensRanch/read-properties-action@v1.0.4
+        id: mod_version
+        with:
+          file: gradle.properties
+          property: mod_version
+
+      - name: Publish (Modrinth)
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
           modrinth-id: 74aTv108
-          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          loaders: |
-            fabric
-          game-versions: |
-            1.20
+          modrinth-token: "${{env.MODRINTH_TOKEN}}"
 
-    runs-on:
-      - ubuntu-latest
-on:
-  - push
+          name: "${{env.RELEASE_NAME}} v${{steps.mod_version.outputs.mod_version}}"
+          version: "${{steps.mod_version.outputs.mod_version}}-${{env.MC_VERSION}}"
+          version-type: release
+          changelog-file: CHANGELOG.md
+          loaders: fabric
+          game-versions: "${{env.MC_VERSION}}"
+
+          java: "${{env.JAVA_VERSION}}"
