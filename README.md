@@ -4,12 +4,13 @@ Customize the Minecraft title bar depending on the current environment (singlepl
 
 ## Formating templates
 
-| Template           | Description      | Example        |
-|--------------------|------------------|----------------|
-| {{version}}        | The game version | 1.21           |
-| {{username}}       | Your username    | Badstagram     |
-| {{server.address}} | The server IP    | mc.hypixel.net |
-| {{server.name}}    | The server name  | hypixel        |
+| Template           | Description     | Example                     |
+|--------------------|-----------------|-----------------------------|
+| {{version}}        | The game version | 1.21                        |
+| {{username}}       | Your username   | Badstagram                  |
+| {{server.address}} | The server IP   | mc.hypixel.net              |
+| {{server.name}}    | The server name | hypixel                     |
+| {{world.name}}     | The world name  | my very epic hardcore world |
 
 ## Creators
 
