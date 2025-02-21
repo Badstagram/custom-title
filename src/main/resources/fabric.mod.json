@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "customtitles",
+  "version": "${version}",
+  "name": "Custom Titles",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/customtitles/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "gay.badstagram.customtitles.client.CustomTitlesClient"
+    ],
+    "modmenu": [
+      "gay.badstagram.customtitles.client.ModMenuApiImpl"
+    ]
+  },
+  "mixins": [
+    "customtitles.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}",
+    "yet_another_config_lib_v3": "3.6.2+1.21-fabric"
+  }
+}

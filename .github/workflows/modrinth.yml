@@ -1,0 +1,21 @@
+jobs:
+  build:
+    # ...
+    permissions:
+      contents: write
+    steps:
+      - uses: Kir-Antipov/mc-publish@v3.3
+        with:
+
+          modrinth-id: 74aTv108
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          loaders: |
+            fabric
+          game-versions: |
+            1.20
+
+    runs-on:
+      - ubuntu-latest
+on:
+  - push
