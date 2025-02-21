@@ -1,6 +1,9 @@
 name: Publish on Modrinth
 
-on: [ workflow_dispatch ]
+on:
+  push:
+    branches:
+      - master
 
 env:
   JAVA_VERSION: 21
